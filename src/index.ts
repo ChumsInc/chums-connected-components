@@ -1,3 +1,5 @@
+export type {ActionPayload, ActionInterface} from './types'
+
 export {
     default as alertsReducer,
     selectAlertList,
