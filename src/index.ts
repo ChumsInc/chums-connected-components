@@ -33,7 +33,7 @@ export {
     defaultPageSet
 } from './pageSets';
 export type {PageAction, PageSet, PagePayload} from './pageSets'
-export {default as ConnectedPage} from './pageSets/ConnectedPager';
+export {default as ConnectedPager} from './pageSets/ConnectedPager';
 export type {ConnectedPagerProps} from './pageSets/ConnectedPager';
 
 export {default as tablesReducer,
@@ -44,6 +44,7 @@ export {default as tablesReducer,
     tablesTableAdded,
 } from './tables'
 export type {SorterProps, KeyedTableSet, SortableTablesAction, SortableTableSet, SortableTablesPayload} from './tables';
+export type {SortProps, SortableTableField} from 'chums-components/dist/types';
 export {default as ConnectedTable} from './tables/ConnectedTable';
 export type {ConnectedTableProps} from './tables/ConnectedTable';
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Pager } from "chums-components";
 import { addPageSetAction, selectPageSet, setPageAction, setRowsPerPageAction } from "./index";
-const ConnectedPager = ({ pageSetKey, dataLength, onChangePage, onChangeRowsPerPage }) => {
+const ConnectedPager = ({ pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage }) => {
     const dispatch = useDispatch();
     const { page, rowsPerPage } = useSelector(selectPageSet(pageSetKey));
     useEffect(() => {
@@ -21,7 +21,7 @@ const ConnectedPager = ({ pageSetKey, dataLength, onChangePage, onChangeRowsPerP
             onChangeRowsPerPage(rowsPerPage, 1);
         }
     };
-    return (_jsx(Pager, { page: page, rowsPerPage: rowsPerPage, dataLength: dataLength, onChangePage: pageChangeHandler, onChangeRowsPerPage: rowsPerPageChangeHandler }));
+    return (_jsx(Pager, { page: page, rowsPerPage: rowsPerPage, dataLength: dataLength, onChangePage: pageChangeHandler, filtered: filtered, onChangeRowsPerPage: rowsPerPageChangeHandler }));
 };
 export default ConnectedPager;
 //# sourceMappingURL=ConnectedPager.js.map

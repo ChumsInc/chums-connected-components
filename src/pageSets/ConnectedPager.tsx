@@ -7,11 +7,12 @@ import {addPageSetAction, selectPageSet, setPageAction, setRowsPerPageAction} fr
 export interface ConnectedPagerProps {
     pageSetKey: string,
     dataLength: number,
+    filtered?: boolean,
     onChangePage?: (page: number) => void
     onChangeRowsPerPage?: (rowsPerPage: number, page?: number) => void
 }
 
-const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, onChangePage, onChangeRowsPerPage}) => {
+const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage}) => {
     const dispatch = useDispatch();
     const {page, rowsPerPage} = useSelector(selectPageSet(pageSetKey));
 
@@ -34,6 +35,7 @@ const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, 
 
     return (
         <Pager page={page} rowsPerPage={rowsPerPage} dataLength={dataLength} onChangePage={pageChangeHandler}
+               filtered={filtered}
                onChangeRowsPerPage={rowsPerPageChangeHandler}/>
     )
 }

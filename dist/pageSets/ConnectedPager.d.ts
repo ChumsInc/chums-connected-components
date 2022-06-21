@@ -2,6 +2,7 @@ import React from "react";
 export interface ConnectedPagerProps {
     pageSetKey: string;
     dataLength: number;
+    filtered?: boolean;
     onChangePage?: (page: number) => void;
     onChangeRowsPerPage?: (rowsPerPage: number, page?: number) => void;
 }
