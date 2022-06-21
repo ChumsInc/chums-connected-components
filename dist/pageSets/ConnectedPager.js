@@ -5,10 +5,10 @@ import { Pager } from "chums-components";
 import { addPageSetAction, selectPageSet, setPageAction, setRowsPerPageAction } from "./index";
 const ConnectedPager = ({ pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage }) => {
     const dispatch = useDispatch();
-    const { page, rowsPerPage } = useSelector(selectPageSet(pageSetKey));
     useEffect(() => {
         dispatch(addPageSetAction({ key: pageSetKey }));
     }, []);
+    const { page, rowsPerPage } = useSelector(selectPageSet(pageSetKey));
     const pageChangeHandler = (page) => {
         dispatch(setPageAction({ key: pageSetKey, page }));
         if (onChangePage) {

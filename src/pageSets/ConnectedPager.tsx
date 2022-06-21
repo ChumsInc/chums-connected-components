@@ -14,11 +14,11 @@ export interface ConnectedPagerProps {
 
 const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage}) => {
     const dispatch = useDispatch();
-    const {page, rowsPerPage} = useSelector(selectPageSet(pageSetKey));
 
     useEffect(() => {
         dispatch(addPageSetAction({key: pageSetKey}));
     }, [])
+    const {page, rowsPerPage} = useSelector(selectPageSet(pageSetKey));
 
     const pageChangeHandler = (page: number) => {
         dispatch(setPageAction({key: pageSetKey, page}));
