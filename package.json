@@ -1,6 +1,6 @@
 {
   "name": "chums-connected-components",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Reusable Components for CHUMS Inc.",
   "main": "dist/index.js",
   "source": "src/index.ts",
