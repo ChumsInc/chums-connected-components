@@ -22,7 +22,7 @@ export interface SorterProps {
 interface RootStateWithTables {
     tables: KeyedTableSet;
 }
-export declare const tablesSortChanged = "tables/categorySortChanged";
+export declare const tablesSortChanged = "tables/sortChanged";
 export declare const tablesTableAdded = "tables/tableAdded";
 export declare const selectTableSort: (key: string) => (state: RootStateWithTables) => SortableTableSet;
 export declare const sortChangedAction: ({ key, field, ascending }: SortableTableSet) => SortableTablesAction;

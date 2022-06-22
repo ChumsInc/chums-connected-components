@@ -31,7 +31,7 @@ interface RootStateWithTables {
     tables: KeyedTableSet,
 }
 
-export const tablesSortChanged = 'tables/categorySortChanged';
+export const tablesSortChanged = 'tables/sortChanged';
 export const tablesTableAdded = 'tables/tableAdded';
 
 export const selectTableSort = (key: string) => (state: RootStateWithTables): SortableTableSet => state.tables[key] || {
