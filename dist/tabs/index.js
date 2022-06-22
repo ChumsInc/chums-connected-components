@@ -7,6 +7,7 @@ export const tabsTabSelected = 'tabs/tab-selected';
 export const tabsTabAdded = 'tabs/tab-added';
 export const tabsTabRemoved = 'tabs/tab-removed';
 export const tabsToggleTabStatus = 'tabs/toggle-tab-status';
+export const tabsUpdated = 'tabs/tabs-updated';
 export const tabListCreatedAction = (list, key = defaultTabsKey, selectedId) => ({
     type: tabsListCreated,
     payload: { key, list, id: selectedId }
@@ -26,6 +27,10 @@ export const tabRemovedAction = (id, key = defaultTabsKey) => ({
 export const tabToggleStatusAction = (id, key = defaultTabsKey, force) => ({
     type: tabsToggleTabStatus,
     payload: { key, id, status: force }
+});
+export const updateTabsAction = (key = defaultTabsKey, props, selected) => ({
+    type: tabsUpdated,
+    payload: { key, updates: props, id: selected }
 });
 export const selectTabList = (key = defaultTabsKey) => (state) => {
     if (!state.tabs[key]) {
@@ -92,8 +97,6 @@ const addTabReducer = (tab) => (tabs) => {
         selected: tabs.selected,
     };
 };
-const updateTabReducer = (list, selected) => (tab) => {
-};
 const removeTabReducer = (id) => (tabs) => {
     const list = [...tabs.list.filter(t => t.id !== id)];
     return {
@@ -114,6 +117,15 @@ const toggleTabDisabledReducer = (id, force) => (tabs) => {
     return {
         list,
         selected: tabs.selected === id ? nextTabId({ ...tabs, list }, id) : tabs.selected
+    };
+};
+const updateTabsReducer = (updates, nextTab) => (tabs) => {
+    return {
+        selected: nextTab || tabs.selected,
+        list: tabs.list.map(tab => {
+            const [update = {}] = updates.filter(t => t.id === tab.id);
+            return { ...tab, ...update };
+        })
     };
 };
 const tabsReducer = (state = initialState, action) => {
@@ -145,7 +157,15 @@ const tabsReducer = (state = initialState, action) => {
             return state;
         case tabsTabSelected:
             if (payload?.id) {
-                return modifyTabSet(state, payload.key, (tabs) => ({ ...tabs, selected: payload.id || tabs.list[0].id || '' }));
+                return modifyTabSet(state, payload.key, (tabs) => ({
+                    ...tabs,
+                    selected: payload.id || tabs.list[0].id || ''
+                }));
+            }
+            return state;
+        case tabsUpdated:
+            if (payload.updates) {
+                return modifyTabSet(state, payload.key, updateTabsReducer(payload.updates, payload.id));
             }
             return state;
         default:
