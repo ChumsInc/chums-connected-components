@@ -164,7 +164,7 @@ const tabsReducer = (state = initialState, action) => {
             }
             return state;
         case tabsUpdated:
-            if (payload.updates) {
+            if (payload.updates && payload.updates.length) {
                 return modifyTabSet(state, payload.key, updateTabsReducer(payload.updates, payload.id));
             }
             return state;

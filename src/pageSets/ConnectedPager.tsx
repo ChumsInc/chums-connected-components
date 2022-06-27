@@ -1,7 +1,14 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Pager} from "chums-components";
-import {addPageSetAction, selectPageSet, setPageAction, setRowsPerPageAction} from "./index";
+import {
+    addPageSetAction,
+    selectCurrentPage,
+    selectPageSet,
+    selectRowsPerPage,
+    setPageAction,
+    setRowsPerPageAction
+} from "./index";
 
 
 export interface ConnectedPagerProps {
@@ -18,7 +25,8 @@ const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, 
     useEffect(() => {
         dispatch(addPageSetAction({key: pageSetKey}));
     }, [])
-    const {page, rowsPerPage} = useSelector(selectPageSet(pageSetKey));
+    const page = useSelector(selectCurrentPage(pageSetKey));
+    const rowsPerPage = useSelector(selectRowsPerPage(pageSetKey));
 
     const pageChangeHandler = (page: number) => {
         dispatch(setPageAction({key: pageSetKey, page}));

@@ -51,9 +51,15 @@ export const addPageSetAction = ({
 });
 
 
-export const selectCurrentPage = (key: string) => (state: RootStateWithPages): number => state.pageSets && state.pageSets[key] ? state.pageSets[key].page : defaultPageSet.page;
-export const selectRowsPerPage = (key: string) => (state: RootStateWithPages): number => state.pageSets && state.pageSets[key] ? state.pageSets[key].rowsPerPage : defaultPageSet.rowsPerPage;
-export const selectPageSet = (key:string) => (state:RootStateWithPages):PageSet => state.pageSets && state.pageSets[key] ? ({...defaultPageSet, ...state.pageSets[key]}) : {...defaultPageSet};
+export const selectCurrentPage = (key: string) => (state: RootStateWithPages): number => state.pageSets && state.pageSets[key]
+    ? state.pageSets[key].page
+    : defaultPageSet.page;
+export const selectRowsPerPage = (key: string) => (state: RootStateWithPages): number => state.pageSets && state.pageSets[key]
+    ? state.pageSets[key].rowsPerPage
+    : defaultPageSet.rowsPerPage;
+export const selectPageSet = (key:string) => (state:RootStateWithPages):PageSet => state.pageSets && state.pageSets[key]
+    ? ({...defaultPageSet, ...state.pageSets[key]})
+    : {...defaultPageSet};
 
 export const selectPageFilter = (key: string) => (state: RootStateWithPages) => {
     const page = selectCurrentPage(key)(state);
