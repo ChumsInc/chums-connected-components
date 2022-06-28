@@ -1,6 +1,6 @@
 import React, {HTMLAttributes} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {dismissAlertAction, selectAlertListByContext} from "./index";
+import {AlertInterface, dismissAlertAction, dismissContextAlertAction, selectAlertListByContext} from "./index";
 import {Alert} from "chums-components/dist";
 
 export interface AlertListProps extends HTMLAttributes<HTMLDivElement> {
@@ -15,11 +15,18 @@ const AlertList: React.FC<AlertListProps> = ({
                                              }) => {
     const dispatch = useDispatch();
     const list = useSelector(selectAlertListByContext(context));
-    const dismissHandler = (id: number) => dispatch(dismissAlertAction(id));
+
+    const dismissHandler = (alert: AlertInterface) => {
+        if (alert.context) {
+            dispatch(dismissContextAlertAction(alert.context));
+            return
+        }
+        dispatch(dismissAlertAction(alert.id));
+    }
 
     return (
         <div {...rest}>
-            {list.map((alert, index) => (<Alert key={index} {...alert} onDismiss={() => dismissHandler(alert.id)}/>))}
+            {list.map((alert, index) => (<Alert key={index} {...alert} onDismiss={() => dismissHandler(alert)}/>))}
             {children}
         </div>
     )
