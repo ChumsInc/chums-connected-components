@@ -1,5 +1,6 @@
 import { ActionInterface, ActionPayload } from "../types";
 import { Tab } from "chums-components/dist/TabItem";
+import { EnhancedStore } from '@reduxjs/toolkit';
 export interface TabSet<T extends Tab = Tab> {
     list: T[];
     selected: string;
@@ -18,7 +19,9 @@ export interface TabAction<T extends Tab = Tab> extends ActionInterface {
 export interface KeyedTabSets<T extends Tab = Tab> {
     [key: string]: TabSet<T>;
 }
-export interface TabState<T extends Tab = Tab> {
+export interface TabState<T extends Tab = Tab> extends EnhancedStore<{
+    tabs: KeyedTabSets<T>;
+}> {
     tabs: KeyedTabSets<T>;
 }
 export declare const tabsListCreated = "tabs/list-created";
