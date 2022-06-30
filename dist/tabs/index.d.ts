@@ -35,6 +35,6 @@ export declare const tabToggleStatusAction: (id: string, key?: string, force?: b
 export declare const updateTabsAction: (key: string | undefined, props: Partial<Tab>[], selected?: string) => TabAction;
 export declare const selectTabList: (key?: string) => (state: RootStateWithTabs) => Tab[];
 export declare const selectCurrentTab: (key?: string) => (state: RootStateWithTabs) => string;
-export declare const selectTabById: <T>(id: string, key?: string) => (state: RootStateWithTabs) => Tab | T;
+export declare const selectTabById: <T extends Tab>(id: string, key?: string) => (state: RootStateWithTabs) => T;
 declare const tabsReducer: (state: KeyedTabSets | undefined, action: TabAction) => KeyedTabSets;
 export default tabsReducer;
