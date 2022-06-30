@@ -1,30 +1,30 @@
 import {ActionInterface, ActionPayload} from "../types";
 import {Tab} from "chums-components/dist/TabItem";
 
-export interface TabSet {
-    list: Tab[],
+export interface TabSet<T extends Tab = Tab> {
+    list: T[],
     selected: string,
 }
 
-export interface TabPayload extends ActionPayload {
+export interface TabPayload<T extends Tab = Tab> extends ActionPayload {
     key: string,
     id?: string,
-    tab?: Tab,
-    list?: Tab[],
-    updates?: Partial<Tab>[],
+    tab?: T,
+    list?: T[],
+    updates?: Partial<T>[],
     status?: boolean,
 }
 
-export interface TabAction extends ActionInterface {
-    payload: TabPayload
+export interface TabAction<T extends Tab = Tab> extends ActionInterface {
+    payload: TabPayload<T>
 }
 
-export interface KeyedTabSets {
-    [key: string]: TabSet
+export interface KeyedTabSets<T extends Tab = Tab> {
+    [key: string]: TabSet<T>
 }
 
-interface RootStateWithTabs {
-    tabs: KeyedTabSets
+export interface TabState<T extends Tab = Tab> {
+    tabs: KeyedTabSets<T>
 }
 
 const initialState: KeyedTabSets = {
@@ -41,37 +41,37 @@ export const tabsToggleTabStatus = 'tabs/toggle-tab-status';
 export const tabsUpdated = 'tabs/tabs-updated';
 
 
-export const tabListCreatedAction = (list: Tab[], key: string = defaultTabsKey, selectedId?: string): TabAction => ({
+export const tabListCreatedAction = <T extends Tab = Tab>(list: T[], key: string = defaultTabsKey, selectedId?: string): TabAction<T> => ({
     type: tabsListCreated,
     payload: {key, list, id: selectedId}
 });
 
-export const tabSelectedAction = (id: string, key: string = defaultTabsKey): TabAction => ({
+export const tabSelectedAction = <T extends Tab = Tab>(id: string, key: string = defaultTabsKey): TabAction<T> => ({
     type: tabsTabSelected,
     payload: {key, id}
 });
 
-export const tabAddedAction = (tab: Tab, key: string = defaultTabsKey): TabAction => ({
+export const tabAddedAction = <T extends Tab = Tab>(tab: T, key: string = defaultTabsKey): TabAction<T> => ({
     type: tabsTabAdded,
     payload: {key, tab}
 });
 
-export const tabRemovedAction = (id: string, key: string = defaultTabsKey): TabAction => ({
+export const tabRemovedAction = <T extends Tab = Tab>(id: string, key: string = defaultTabsKey): TabAction<T> => ({
     type: tabsTabRemoved,
     payload: {key, id}
 })
 
-export const tabToggleStatusAction = (id: string, key: string = defaultTabsKey, force?: boolean): TabAction => ({
+export const tabToggleStatusAction = <T extends Tab = Tab>(id: string, key: string = defaultTabsKey, force?: boolean): TabAction<T> => ({
     type: tabsToggleTabStatus,
     payload: {key, id, status: force}
 })
 
-export const updateTabsAction = (key: string = defaultTabsKey, props: Partial<Tab>[], selected?: string): TabAction => ({
+export const updateTabsAction = <T extends Tab = Tab>(key: string = defaultTabsKey, props: Partial<T>[], selected?: string): TabAction<T> => ({
     type: tabsUpdated,
     payload: {key, updates: props, id: selected}
 })
 
-export const selectTabList = (key: string = defaultTabsKey) => (state: RootStateWithTabs) => {
+export const selectTabList = <T extends Tab = Tab>(key: string = defaultTabsKey) => (state: TabState<T>):T[] => {
     if (!state.tabs[key]) {
         return [];
     }
@@ -79,7 +79,7 @@ export const selectTabList = (key: string = defaultTabsKey) => (state: RootState
 }
 
 
-export const selectCurrentTab = (key: string = defaultTabsKey) => (state: RootStateWithTabs): string => {
+export const selectCurrentTab = <T extends Tab = Tab>(key: string = defaultTabsKey) => (state: TabState<T>): string => {
     if (!state.tabs[key]) {
         return '';
     }
@@ -89,7 +89,7 @@ export const selectCurrentTab = (key: string = defaultTabsKey) => (state: RootSt
 }
 
 
-export const selectTabById = <T extends Tab>(id: string, key: string = defaultTabsKey) => (state: RootStateWithTabs): T => {
+export const selectTabById = <T extends Tab = Tab>(id: string, key: string = defaultTabsKey) => (state: TabState<T>): T => {
     if (!state.tabs[key]) {
         return {id: '', title: ''} as T;
     }
