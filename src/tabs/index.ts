@@ -89,12 +89,12 @@ export const selectCurrentTab = (key: string = defaultTabsKey) => (state: RootSt
 }
 
 
-export const selectTabById = <T>(id: string, key: string = defaultTabsKey) => (state: RootStateWithTabs): T|Tab => {
+export const selectTabById = <T extends Tab>(id: string, key: string = defaultTabsKey) => (state: RootStateWithTabs): T => {
     if (!state.tabs[key]) {
-        return {id: '', title: ''};
+        return {id: '', title: ''} as T;
     }
     const [tab] = state.tabs[key].list.filter(tab => tab.id === id);
-    return tab;
+    return tab as T;
 }
 
 
