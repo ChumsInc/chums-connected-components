@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {Pager} from "chums-components";
 import {
     addPageSetAction,
+    defaultPageSet,
     selectCurrentPage,
-    selectPageSet,
     selectRowsPerPage,
     setPageAction,
     setRowsPerPageAction
@@ -13,17 +13,29 @@ import {
 
 export interface ConnectedPagerProps {
     pageSetKey: string,
+    defaultRowsPerPage?: number,
     dataLength: number,
     filtered?: boolean,
     onChangePage?: (page: number) => void
     onChangeRowsPerPage?: (rowsPerPage: number, page?: number) => void
 }
 
-const ConnectedPager: React.FC<ConnectedPagerProps> = ({pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage}) => {
+const ConnectedPager: React.FC<ConnectedPagerProps> = ({
+                                                           pageSetKey,
+                                                           defaultRowsPerPage,
+                                                           dataLength,
+                                                           filtered,
+                                                           onChangePage,
+                                                           onChangeRowsPerPage
+                                                       }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(addPageSetAction({key: pageSetKey}));
+        dispatch(addPageSetAction({
+            key: pageSetKey,
+            rowsPerPage: defaultRowsPerPage || defaultPageSet.rowsPerPage,
+            page: 1
+        }));
     }, [])
     const page = useSelector(selectCurrentPage(pageSetKey));
     const rowsPerPage = useSelector(selectRowsPerPage(pageSetKey));

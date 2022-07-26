@@ -2,11 +2,15 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Pager } from "chums-components";
-import { addPageSetAction, selectCurrentPage, selectRowsPerPage, setPageAction, setRowsPerPageAction } from "./index";
-const ConnectedPager = ({ pageSetKey, dataLength, filtered, onChangePage, onChangeRowsPerPage }) => {
+import { addPageSetAction, defaultPageSet, selectCurrentPage, selectRowsPerPage, setPageAction, setRowsPerPageAction } from "./index";
+const ConnectedPager = ({ pageSetKey, defaultRowsPerPage, dataLength, filtered, onChangePage, onChangeRowsPerPage }) => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(addPageSetAction({ key: pageSetKey }));
+        dispatch(addPageSetAction({
+            key: pageSetKey,
+            rowsPerPage: defaultRowsPerPage || defaultPageSet.rowsPerPage,
+            page: 1
+        }));
     }, []);
     const page = useSelector(selectCurrentPage(pageSetKey));
     const rowsPerPage = useSelector(selectRowsPerPage(pageSetKey));
