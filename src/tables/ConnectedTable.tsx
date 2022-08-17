@@ -35,7 +35,7 @@ const ConnectedTable: React.FC<ConnectedTableProps> = ({
 
     useEffect(() => {
         dispatch(sortChangedAction({key: tableKey, ...defaultSort}));
-    }, [defaultSort])
+    }, [defaultSort.field, defaultSort.ascending])
 
     const sortChangedHandler = (sort: SorterProps) => {
         dispatch(sortChangedAction({key: tableKey, ...sort}));

@@ -11,7 +11,7 @@ const ConnectedTable = ({ tableKey, defaultSort, fields, data, onChangeSort, key
     }, []);
     useEffect(() => {
         dispatch(sortChangedAction({ key: tableKey, ...defaultSort }));
-    }, [defaultSort]);
+    }, [defaultSort.field, defaultSort.ascending]);
     const sortChangedHandler = (sort) => {
         dispatch(sortChangedAction({ key: tableKey, ...sort }));
         if (onChangeSort) {
