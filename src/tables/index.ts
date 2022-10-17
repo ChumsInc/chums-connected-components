@@ -40,6 +40,7 @@ export const selectTableSort = (key: string) => (state: RootStateWithTables): So
     ascending: true
 };
 
+export const selectTablesSort = (state:RootStateWithTables) => state.tables;
 
 export const sortChangedAction = ({key, field, ascending}: SortableTableSet): SortableTablesAction => ({
     type: tablesSortChanged,

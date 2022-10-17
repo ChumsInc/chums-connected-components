@@ -38,7 +38,9 @@
     "chums-components": "github:UtahGooner/chums-components",
     "classnames": "^2.3.1",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.17",
@@ -87,8 +89,6 @@
     "commitLimit": false
   },
   "dependencies": {
-    "@tsconfig/node18": "^1.0.1",
-    "react-redux": "^8.0.2",
-    "redux": "^4.2.0"
+    "@tsconfig/node18": "^1.0.1"
   }
 }

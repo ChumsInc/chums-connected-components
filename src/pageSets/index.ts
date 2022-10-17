@@ -61,6 +61,8 @@ export const selectPageSet = (key:string) => (state:RootStateWithPages):PageSet 
     ? ({...defaultPageSet, ...state.pageSets[key]})
     : {...defaultPageSet};
 
+export const selectPageSets = (state:RootStateWithPages): KeyedPageState => state.pageSets;
+
 export const selectPageFilter = (key: string) => (state: RootStateWithPages) => {
     const page = selectCurrentPage(key)(state);
     const rowsPerPage = selectRowsPerPage(key)(state);
